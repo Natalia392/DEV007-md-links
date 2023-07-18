@@ -1,0 +1,19 @@
+{
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2015
+  },
+  "extends": ["airbnb"],
+  "rules": {
+    "max-len": ["error", {"code": 100}],
+    "import/extensions": [
+      "error",
+      "always"
+    ]
+  },
+  "env": {
+    "browser": true,
+    "jest": true,
+    "es2021": true
+}
+}
