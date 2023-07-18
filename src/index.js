@@ -4,9 +4,17 @@ import chalk from 'chalk';
 
 // Introducir en la terminal node ./src/index.js README.md para correr la app.
 const route = process.argv[2];
-// Se verifica si la ruta existe
-export const routeExist = (recievedPath) => (fs.existsSync(recievedPath));
 
+// constantes para probar
+// eslint-disable-next-line no-useless-escape, no-unused-vars
+const rutaAbsoluta = 'C:\Users\ntorr\Desktop\proyectos-laboratoria\DEV007-md-links\README.md';
+// eslint-disable-next-line no-unused-vars
+const rutaRelativa = 'README.md';
+// eslint-disable-next-line no-unused-vars
+const rutaADirectorio = 'PRUEBA';
+// Se verifica si la ruta existe
+
+export const routeExists = (recievedPath) => (fs.existsSync(recievedPath));
 // Se transforma la ruta a absoluta de no serlo
 export const toAbsolutePath = (recievedPath) => {
   if (path.isAbsolute(recievedPath)) {
@@ -18,20 +26,30 @@ export const toAbsolutePath = (recievedPath) => {
   return path.resolve(recievedPath);
 };
 
-// Llamar la función para ver qué va pasando con el flujo
-const mdLinks = (recievedPath) => {
-  // ¿Existe la ruta?
-  if (routeExist(recievedPath)) {
-    // Cambiar a absoluta de no ser absoluta
-    toAbsolutePath(recievedPath);
-  } else {
-    // ERROR: si la ruta no existe, se lanza mensaje "no existe la ruta"
-    console.log(chalk.bgRed.bold('La ruta no existe'));
+export const fileOrDirectory = (recievedPath) => {
+  const statsPath = fs.statSync(recievedPath);
+  if (statsPath.isDirectory()) {
+    // Entrar al directorio
+    console.log('Es directorio', fs.readdirSync(recievedPath));
+    fs.readdirSync(recievedPath);
+  } else if (statsPath.isFile()) {
+    // Leer file
+    console.log('Es file');
+    console.log(fs.readFileSync());
   }
-
-  // Se verifica si es archivo MD
-  // Si es MD se guarda en un array
-  // Si no es MD, se verifica si es directorio
+  console.log(statsPath.isDirectory(), 'HOLAAAAAA');
 };
 
-mdLinks(route);
+// const mdLinks = (recievedPath /*,options*/ ) => new Promise((resolve, reject) => {
+//   // Identifica si la ruta existe
+//   if (routeExists(recievedPath)) {
+//     resolve('La ruta existe', toAbsolutePath(recievedPath));
+//   } else {
+//     // Si la ruta no existe se rechaza la promesa
+//     reject(Error);
+//   }
+// });
+
+// mdLinks(route);
+
+// fileOrDirectory(rutaADirectorio);
