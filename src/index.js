@@ -3,43 +3,51 @@ import fs from 'fs';
 import chalk from 'chalk';
 
 // Introducir en la terminal node ./src/index.js README.md para correr la app.
-const route = process.argv[2];
+// const route = process.argv[2];
 
 // constantes para probar
 // eslint-disable-next-line no-useless-escape, no-unused-vars
-const rutaAbsoluta = 'C:\Users\ntorr\Desktop\proyectos-laboratoria\DEV007-md-links\README.md';
+const rutaAbsoluta = 'C:\Users\ntorr\Desktop\proyectos-laboratoria\DEV007-md-links\PRUEBA';
 // eslint-disable-next-line no-unused-vars
 const rutaRelativa = 'README.md';
 // eslint-disable-next-line no-unused-vars
 const rutaADirectorio = 'PRUEBA';
-// Se verifica si la ruta existe
 
+// ----------VERIFICA SI EXISTE LA RUTA-------------------------------------
 export const routeExists = (recievedPath) => (fs.existsSync(recievedPath));
-// Se transforma la ruta a absoluta de no serlo
+// routeExists(rutaAbsoluta);
+
+// ---------SI ES ABSOLUTA O NO, QUEDA ABSOLUTA ----------------------------
 export const toAbsolutePath = (recievedPath) => {
   if (path.isAbsolute(recievedPath)) {
-    console.log(chalk.green.bold('LA RUTA ES ABSOLUTA'));
+    console.log(chalk.green.bold('toAbsolutePath: LA RUTA ES ABSOLUTA'));
     return recievedPath;
   }
-  console.log(chalk.blue.bold('CAMBIANDO A RUTA ABSOLUTA'));
-  console.log('TU RUTA ABOLUTA ES:', chalk.bgWhite(path.resolve(recievedPath)));
+  console.log(chalk.blue.bold('toAbsolutePath: CAMBIANDO A RUTA ABSOLUTA'));
+  console.log(chalk.bgGray('Tu ruta absoluta es:'), chalk.bgGreen(path.resolve(recievedPath)));
   return path.resolve(recievedPath);
 };
+// toAbsolutePath(rutaAbsoluta);
 
+// ---------SI ES DIRECTORIO -----------------------------------------------
 export const fileOrDirectory = (recievedPath) => {
   const statsPath = fs.statSync(recievedPath);
+  let arrayFiles = [];
   if (statsPath.isDirectory()) {
     // Entrar al directorio
-    console.log('Es directorio', fs.readdirSync(recievedPath));
-    fs.readdirSync(recievedPath);
+    arrayFiles = fs.readdirSync(recievedPath);
+    // console.log('Es directorio: leer', arrayFiles);
   } else if (statsPath.isFile()) {
-    // Leer file
-    console.log('Es file');
-    console.log(fs.readFileSync());
+    // Devolver array con ese único archivo
+    arrayFiles.push(recievedPath);
+    // console.log('Es un file: guarda en array', arrayFiles);
   }
-  console.log(statsPath.isDirectory(), 'HOLAAAAAA');
+  return arrayFiles;
 };
 
+// para leer     console.log(fs.readFileSync());
+
+// console.log(fileOrDirectory(route));
 // const mdLinks = (recievedPath /*,options*/ ) => new Promise((resolve, reject) => {
 //   // Identifica si la ruta existe
 //   if (routeExists(recievedPath)) {

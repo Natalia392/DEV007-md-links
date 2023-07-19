@@ -13,7 +13,13 @@ const mdLinks = (path /*,options*/ ) => new Promise((resolve, reject) => {
   }
 });
 
-mdLinks(route);
-console.log('HOLA');
+mdLinks(route)
+  .then((rutaAbsoluta) => {
+    console.log('.then:', (rutaAbsoluta));
+  })
+  .catch((error) => {
+    console.log('.catch: LA RUTA NO EXISTE');
+    console.error((error));
+  });
 
 export default mdLinks;
