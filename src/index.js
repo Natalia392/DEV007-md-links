@@ -1,37 +1,69 @@
 import path from 'path';
 import fs from 'fs';
-import chalk from 'chalk';
 
 // Introducir en la terminal node ./src/index.js README.md para correr la app.
 const route = process.argv[2];
-// Se verifica si la ruta existe
-export const routeExist = (recievedPath) => (fs.existsSync(recievedPath));
 
-// Se transforma la ruta a absoluta de no serlo
+// constantes para probar
+// eslint-disable-next-line no-useless-escape, no-unused-vars
+const rutaAbsoluta = 'C:\Users\ntorr\Desktop\proyectos-laboratoria\DEV007-md-links\PRUEBA';
+// eslint-disable-next-line no-unused-vars
+const rutaRelativa = 'README.md';
+// eslint-disable-next-line no-unused-vars
+const rutaADirectorio = 'PRUEBA';
+
+// ----------VERIFICA SI EXISTE LA RUTA-------------------------------------
+export const routeExists = (recievedPath) => (fs.existsSync(recievedPath));
+
+// ---------SI ES ABSOLUTA O NO, QUEDA ABSOLUTA ----------------------------
 export const toAbsolutePath = (recievedPath) => {
   if (path.isAbsolute(recievedPath)) {
-    console.log(chalk.green.bold('LA RUTA ES ABSOLUTA'));
+    console.log(1, ('LA RUTA YA ES ABSOLUTA'));
     return recievedPath;
   }
-  console.log(chalk.blue.bold('CAMBIANDO A RUTA ABSOLUTA'));
-  console.log('TU RUTA ABOLUTA ES:', chalk.bgWhite(path.resolve(recievedPath)));
+  console.log(2, ('CAMBIANDO A RUTA ABSOLUTA'));
+  console.log(3, ('Tu ruta absoluta es:'), (path.resolve(recievedPath)));
   return path.resolve(recievedPath);
 };
 
-// Llamar la función para ver qué va pasando con el flujo
-const mdLinks = (recievedPath) => {
-  // ¿Existe la ruta?
-  if (routeExist(recievedPath)) {
-    // Cambiar a absoluta de no ser absoluta
-    toAbsolutePath(recievedPath);
-  } else {
-    // ERROR: si la ruta no existe, se lanza mensaje "no existe la ruta"
-    console.log(chalk.bgRed.bold('La ruta no existe'));
-  }
+console.log(0, 'ESTA CORRIENDO index.js');
 
-  // Se verifica si es archivo MD
-  // Si es MD se guarda en un array
-  // Si no es MD, se verifica si es directorio
+// ---------REVISAR SI ES MD (retorna booleano) ------------------------------
+export const isMD = (file) => {
+  console.log(4, 'Soy un archivo Md ', file);
+  return path.extname(file) === '.md';
 };
 
-mdLinks(route);
+// ---------SI ES DIRECTORIO -----------------------------------------------
+export const isDirectory = (recievedPath) => {
+  const statsPath = fs.statSync(recievedPath);
+  return statsPath.isDirectory();
+};
+
+// isDirectory(route);
+
+export const extractMDFiles = (recievedPath) => {
+  // crear array para recibir archivos md que se encuentren
+  let arrayMDFiles = [];
+  // Primero se revisa el contenido del directorio
+  const elementsInDirectory = fs.readdirSync(recievedPath);
+  console.log(6, 'ELEMENTOS en DIR:', elementsInDirectory);
+  // Un forEach para analizar cada elemento encontrado en el directorio
+  elementsInDirectory.forEach((element) => {
+    // por cada elemento, se crea su nuevo path
+    const newPath = path.join(recievedPath, element);
+    // Y se ven sus stats, para ver si son o no directorios
+    const newPathStats = fs.statSync(newPath);
+    // Si alguna es md file, se agrega al array
+    if (path.extname(newPath) === '.md') {
+      arrayMDFiles.push(newPath);
+    } else if (newPathStats.isDirectory()) {
+      console.log(100000, 'elemento actual', newPath);
+      arrayMDFiles = arrayMDFiles.concat(extractMDFiles(newPath));
+    }
+  });
+  return arrayMDFiles;
+};
+
+// extractMDFiles(route);
+// console.log(extractMDFiles(route));
