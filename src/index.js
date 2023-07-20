@@ -1,9 +1,8 @@
 import path from 'path';
 import fs from 'fs';
-import chalk from 'chalk';
 
 // Introducir en la terminal node ./src/index.js README.md para correr la app.
-// const route = process.argv[2];
+const route = process.argv[2];
 
 // constantes para probar
 // eslint-disable-next-line no-useless-escape, no-unused-vars
@@ -15,49 +14,56 @@ const rutaADirectorio = 'PRUEBA';
 
 // ----------VERIFICA SI EXISTE LA RUTA-------------------------------------
 export const routeExists = (recievedPath) => (fs.existsSync(recievedPath));
-// routeExists(rutaAbsoluta);
 
 // ---------SI ES ABSOLUTA O NO, QUEDA ABSOLUTA ----------------------------
 export const toAbsolutePath = (recievedPath) => {
   if (path.isAbsolute(recievedPath)) {
-    console.log(chalk.green.bold('toAbsolutePath: LA RUTA ES ABSOLUTA'));
+    console.log(1, ('LA RUTA YA ES ABSOLUTA'));
     return recievedPath;
   }
-  console.log(chalk.blue.bold('toAbsolutePath: CAMBIANDO A RUTA ABSOLUTA'));
-  console.log(chalk.bgGray('Tu ruta absoluta es:'), chalk.bgGreen(path.resolve(recievedPath)));
+  console.log(2, ('CAMBIANDO A RUTA ABSOLUTA'));
+  console.log(3, ('Tu ruta absoluta es:'), (path.resolve(recievedPath)));
   return path.resolve(recievedPath);
 };
-// toAbsolutePath(rutaAbsoluta);
 
-// ---------SI ES DIRECTORIO -----------------------------------------------
-export const fileOrDirectory = (recievedPath) => {
-  const statsPath = fs.statSync(recievedPath);
-  let arrayFiles = [];
-  if (statsPath.isDirectory()) {
-    // Entrar al directorio
-    arrayFiles = fs.readdirSync(recievedPath);
-    // console.log('Es directorio: leer', arrayFiles);
-  } else if (statsPath.isFile()) {
-    // Devolver array con ese único archivo
-    arrayFiles.push(recievedPath);
-    // console.log('Es un file: guarda en array', arrayFiles);
-  }
-  return arrayFiles;
+console.log(0, 'ESTA CORRIENDO index.js');
+
+// ---------REVISAR SI ES MD (retorna booleano) ------------------------------
+export const isMD = (file) => {
+  console.log(4, 'Soy un archivo Md ', file);
+  return path.extname(file) === '.md';
 };
 
-// para leer     console.log(fs.readFileSync());
+// ---------SI ES DIRECTORIO -----------------------------------------------
+export const isDirectory = (recievedPath) => {
+  const statsPath = fs.statSync(recievedPath);
+  return statsPath.isDirectory();
+};
 
-// console.log(fileOrDirectory(route));
-// const mdLinks = (recievedPath /*,options*/ ) => new Promise((resolve, reject) => {
-//   // Identifica si la ruta existe
-//   if (routeExists(recievedPath)) {
-//     resolve('La ruta existe', toAbsolutePath(recievedPath));
-//   } else {
-//     // Si la ruta no existe se rechaza la promesa
-//     reject(Error);
-//   }
-// });
+// isDirectory(route);
 
-// mdLinks(route);
+export const extractMDFiles = (recievedPath) => {
+  // crear array para recibir archivos md que se encuentren
+  let arrayMDFiles = [];
+  // Primero se revisa el contenido del directorio
+  const elementsInDirectory = fs.readdirSync(recievedPath);
+  console.log(6, 'ELEMENTOS en DIR:', elementsInDirectory);
+  // Un forEach para analizar cada elemento encontrado en el directorio
+  elementsInDirectory.forEach((element) => {
+    // por cada elemento, se crea su nuevo path
+    const newPath = path.join(recievedPath, element);
+    // Y se ven sus stats, para ver si son o no directorios
+    const newPathStats = fs.statSync(newPath);
+    // Si alguna es md file, se agrega al array
+    if (path.extname(newPath) === '.md') {
+      arrayMDFiles.push(newPath);
+    } else if (newPathStats.isDirectory()) {
+      console.log(100000, 'elemento actual', newPath);
+      arrayMDFiles = arrayMDFiles.concat(extractMDFiles(newPath));
+    }
+  });
+  return arrayMDFiles;
+};
 
-// fileOrDirectory(rutaADirectorio);
+// extractMDFiles(route);
+// console.log(extractMDFiles(route));
