@@ -12,7 +12,7 @@ const rutaRelativa = 'README.md';
 // eslint-disable-next-line no-unused-vars
 const rutaADirectorio = 'PRUEBA';
 
-// ----------VERIFICA SI EXISTE LA RUTA-------------------------------------
+// ---------------------------VERIFICA SI EXISTE LA RUTA-------------------------------------
 export const routeExists = (recievedPath) => (fs.existsSync(recievedPath));
 
 // ---------SI ES ABSOLUTA O NO, QUEDA ABSOLUTA ----------------------------
@@ -28,13 +28,19 @@ export const toAbsolutePath = (recievedPath) => {
 
 console.log(0, 'ESTA CORRIENDO index.js');
 
-// ---------REVISAR SI ES MD (retorna booleano) ------------------------------
+// -----------------REVISAR SI ES MD (retorna array con archivo MD) ------------------------------
 export const isMD = (file) => {
-  console.log(4, 'Soy un archivo Md ', file);
-  return path.extname(file) === '.md';
+  const arrMDFile = [];
+  if (path.extname(file) === '.md') {
+    arrMDFile.push(file);
+    console.log('Soy un archivo MD');
+  }
+  return arrMDFile;
 };
 
-// ---------SI ES DIRECTORIO -----------------------------------------------
+// isMD(route);
+
+// ---------------------------------SI ES DIRECTORIO ------------------------------------------
 export const isDirectory = (recievedPath) => {
   const statsPath = fs.statSync(recievedPath);
   return statsPath.isDirectory();
@@ -65,5 +71,56 @@ export const extractMDFiles = (recievedPath) => {
   return arrayMDFiles;
 };
 
-// extractMDFiles(route);
-// console.log(extractMDFiles(route));
+// --------PARA HACER LA PRUEBA CON LA LECTURA DE FILES ---------------------
+
+const arraydeMD = () => {
+  let arrayMD = [];
+
+  if (isDirectory(route)) {
+    console.log(10, 'Es directorio:');
+    arrayMD = extractMDFiles(route);
+    console.log(arrayMD);
+  } else if (isMD(route)) {
+    console.log(11, 'Es 1 md file');
+    arrayMD = isMD(route);
+    console.log(arrayMD);
+  }
+  return arrayMD;
+};
+
+// console.log('CAMINANDO POR LA CAELLE', arraydeMD());
+const arrPrueba = arraydeMD();
+
+// ------------------------LECTURA ARCHIVOS MD EN ARRAY-------------------------------
+export const readMarkdownFiles = (arrayFiles) => {
+  const dataMDArray = [];
+  arrayFiles.forEach((file) => {
+    const fileData = fs.readFileSync(file, 'utf8');
+    dataMDArray.push(fileData);
+  });
+  return dataMDArray;
+};
+
+const dataInMD = readMarkdownFiles(arrPrueba);
+console.log(typeof dataInMD);
+// console.log(dataInMD);
+// console.log(88888888, dataInMD);
+
+export const extractLinks = (dataArray) => {
+  const links = [];
+  const regex = /\[([^\]]+)\]\(([^\)]+)\)/g;
+  dataArray.forEach((markdownText) => {
+    let match = regex.exec(markdownText);
+    while (match !== null) {
+      const link = {
+        text: match[1],
+        url: match[2],
+      };
+      links.push(link);
+      match = regex.exec(markdownText);
+    }
+  });
+  return links;
+};
+
+console.log(extractLinks(dataInMD));
