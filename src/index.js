@@ -48,6 +48,7 @@ export const isDirectory = (recievedPath) => {
 
 // isDirectory(route);
 
+// ------------------------FUNCIÓN RECURSIVA EXTRAE ARCHIVOS MD DE DIRECTORIO ------------------
 export const extractMDFiles = (recievedPath) => {
   // crear array para recibir archivos md que se encuentren
   let arrayMDFiles = [];
@@ -109,17 +110,11 @@ console.log(typeof dataInMD);
 export const extractLinks = (dataArray) => {
   const links = [];
   const regex = /\[([^\]]+)\]\(([^\)]+)\)/g;
-  dataArray.forEach((markdownText) => {
-    let match = regex.exec(markdownText);
-    while (match !== null) {
-      const link = {
-        text: match[1],
-        url: match[2],
-      };
-      links.push(link);
-      match = regex.exec(markdownText);
-    }
-  });
+  let match = regex.exec(dataArray);
+  while (match !== null) {
+    links.push({ text: match[1], url: match[2] });
+    match = regex.exec(dataArray);
+  }
   return links;
 };
 
