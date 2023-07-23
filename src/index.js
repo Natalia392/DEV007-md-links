@@ -93,7 +93,7 @@ const arraydeMD = () => {
 };
 
 // console.log('CAMINANDO POR LA CAELLE', arraydeMD());
-// const arrPrueba = arraydeMD(rutaAbsoluta);
+const arrPrueba = arraydeMD(rutaAbsoluta);
 
 // ------------------------LECTURA ARCHIVOS MD EN ARRAY-------------------------------
 export const readMarkdownFiles = (arrayFiles) => {
@@ -104,11 +104,11 @@ export const readMarkdownFiles = (arrayFiles) => {
     const fileData = fs.readFileSync(file, 'utf8');
     dataMDArray.push({ fileData, file: fileRoute });
   });
-  console.log('OBJETO CON DATA Y RUTA', dataMDArray);
+  console.log(107, 'OBJETO CON DATA Y RUTA', dataMDArray);
   return dataMDArray;
 };
 
-// const dataInMD = readMarkdownFiles(arrPrueba);
+const dataInMD = readMarkdownFiles(arrPrueba);
 // console.log(110, dataInMD);
 // console.log(dataInMD);
 // console.log(88888888, dataInMD);
@@ -117,18 +117,47 @@ export const readMarkdownFiles = (arrayFiles) => {
 export const extractLinks = (dataArray) => {
   const links = [];
   const regex = /\[([^\]]+)\]\(([^\)]+)\)/g;
-  // dataArray[0].fileData encuentra la ubicación del contenido del achivo MD.
-  let match = regex.exec(dataArray[0].fileData);
-  while (match !== null) {
-    links.push({
-      href: match[2],
-      text: match[1],
-      file: dataArray[0].file,
-    });
-    match = regex.exec(dataArray);
-  }
-  console.log(122, 'Consologueará el objeto con sus propiedades?', links);
+  dataArray.forEach((data) => {
+    // dataArray[0].fileData encuentra la ubicación del contenido del achivo MD.
+    let match = regex.exec(data.fileData);
+    console.log(123, match[0])
+    while (match !== null) {
+      links.push({
+        href: match[2],
+        text: match[1],
+        file: data.file,
+      });
+      match = regex.exec(data.fileData);
+    }
+  });
+  console.log(134, 'Consologueará el objeto con sus propiedades?', links);
   return links;
 };
 
-// console.log(extractLinks(dataInMD));
+const linksInMdFiles = extractLinks(dataInMD);
+// Función para validar los enlaces encontrados
+function validateLinks(links) {
+  const promises = links.map((link) => {
+    return axios
+      .head(link.href)
+      .then((response) => {
+        const isValid = response.status >= 200 && response.status < 400;
+        return { ...link, isValid: isValid };
+      })
+      .catch(() => {
+        return { ...link, isValid: false };
+      });
+  });
+  return Promise.all(promises);
+}
+
+// Llamar a la función para validar los enlaces
+validateLinks(linksInMdFiles)
+  .then((validatedLinksInMdFiles) => {
+    // Mostrar los enlaces validados en la consola
+    console.log('Enlaces válidos y falsos encontrados en los archivos MD:');
+    console.log(validatedLinksInMdFiles);
+  })
+  .catch((error) => {
+    console.error('Ocurrió un error al validar los enlaces:', error);
+  });
