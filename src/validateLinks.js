@@ -6,11 +6,21 @@ const validateLinks = (objectLinksArray) => {
     .get(objectLink.href)
     .then((response) => {
       const isValid = response.status >= 200 && response.status < 400;
-      return ({ ...objectLink, isValid });
+      return {
+        ...objectLink,
+        status: response.status,
+        ok: isValid ? 'OK' : 'FAIL',
+      };
     })
     .catch((error) => {
-      console.error(149, error.message);
-      return ({ ...objectLink, isValid: false });
+      if (error.response) {
+        return {
+          ...objectLink,
+          status: error.response.status,
+          ok: 'FAIL',
+        };
+      }
+      return objectLink;
     }));
   return Promise.all(promises);
 };

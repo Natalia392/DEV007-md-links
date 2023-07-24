@@ -30,21 +30,17 @@ export const isDirectory = (recievedPath) => {
 };
 
 // --------PARA HACER LA PRUEBA CON LA LECTURA DE FILES ---------------------
+// let arrayMD = [];
 
-// const arraydeMD = () => {
-//   let arrayMD = [];
-
-//   if (isDirectory(route)) {
-//     console.log(10, 'Es directorio:');
-//     arrayMD = extractMDFiles(route);
-//     console.log(arrayMD);
-//   } else if (isMD(route)) {
-//     console.log(11, 'Es 1 md file');
-//     arrayMD = isMD(route);
-//     console.log(arrayMD);
-//   }
-//   return arrayMD;
-// };
+// if (isDirectory(absolutePath)) {
+//   console.log(10, 'Es directorio:');
+//   arrayMD = extractMDFiles(absolutePath);
+//   console.log(arrayMD);
+// } else if (isMD(absolutePath)) {
+//   console.log(11, 'Es 1 md file');
+//   arrayMD = isMD(absolutePath);
+//   console.log(arrayMD);
+// }
 
 // const arrPrueba = arraydeMD(rutaAbsoluta);
 

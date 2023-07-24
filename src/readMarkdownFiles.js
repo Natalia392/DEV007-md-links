@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 
 // ------------------------LECTURA ARCHIVOS MD EN ARRAY-------------------------------
-export const readMarkdownFiles = (arrayMDFiles) => {
+const readMarkdownFiles = (arrayMDFiles) => {
   console.log('FILE', arrayMDFiles);
   const objectLinksArray = [];
   arrayMDFiles.forEach((file) => {
@@ -10,7 +10,6 @@ export const readMarkdownFiles = (arrayMDFiles) => {
     const fileData = fs.readFileSync(file, 'utf8');
     objectLinksArray.push({ fileData, file: fileRoute });
   });
-  console.log('OBJETO CON DATA Y RUTA', objectLinksArray);
   return objectLinksArray;
 };
 
