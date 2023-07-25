@@ -19,10 +19,13 @@ export const isMD = (file) => {
   const arrMDFile = [];
   if (path.extname(file) === '.md') {
     arrMDFile.push(file);
+  } else {
+    return false;
   }
   return arrMDFile;
 };
 
+console.log(isMD('README.md'));
 // ---------------------------------SI ES DIRECTORIO ------------------------------------------
 export const isDirectory = (recievedPath) => {
   const statsPath = fs.statSync(recievedPath);

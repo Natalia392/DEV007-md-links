@@ -3,7 +3,6 @@ import fs from 'fs';
 
 // ------------------------LECTURA ARCHIVOS MD EN ARRAY-------------------------------
 const readMarkdownFiles = (arrayMDFiles) => {
-  console.log('FILE', arrayMDFiles);
   const objectLinksArray = [];
   arrayMDFiles.forEach((file) => {
     const fileRoute = path.resolve(file);

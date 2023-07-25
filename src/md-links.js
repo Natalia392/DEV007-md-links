@@ -10,17 +10,18 @@ import readMarkdownFiles from './readMarkdownFiles.js';
 import extractLinks from './extractLinks.js';
 import validateLinks from './validateLinks.js';
 import getLinksStats from './getStats.js';
-// Introducir en la terminal node ./src/index.js README.md para correr la app.
-const route = process.argv[2];
 
-const mdLinks = (path /*,options*/) => new Promise((resolve, reject) => {
+// const route = process.argv[2];
+
+const mdLinks = (path, options) => new Promise((resolve, reject) => {
   let absolutePath = '';
   // Declarar ruta y verifica si existe
   const pathExists = routeExists(path);
   // Identifica si la ruta existe y si es relativa, la cambia a absoluta
   if (pathExists) {
     absolutePath = toAbsolutePath(path);
-    console.log('Tu ruta absoluta:', absolutePath);
+  } else {
+    console.log('Tu ruta no existe');
   }
   // Verificar si es directorio o MD: Se crea una constante arrayMDFiles para dos caminos dir o md.
   let arrayMDFiles = [];
@@ -34,23 +35,18 @@ const mdLinks = (path /*,options*/) => new Promise((resolve, reject) => {
   const dataMDArray = readMarkdownFiles(arrayMDFiles);
   // Sobre dataMDArray se aplica función extractMDFiles para extraer links. Retorna objectLinksArray
   const objectLinksArray = extractLinks(dataMDArray);
-  validateLinks(objectLinksArray)
-    .then((validatedLinks) => {
-      console.log(39, 'LINKS VALIDADOS', validatedLinks);
-      return getLinksStats(validatedLinks);
-    })
-    .then((linkStats) => {
-      console.log(linkStats);
-    })
-    .catch((error) => {
-      console.error('Ocurió un error al validar los enlaces:', error);
+  // Un if para validar si está la opción validate y su alternativa si no lo está.
+  if (options.validate && options.stats) {
+    validateLinks(objectLinksArray).then((linksToValidate) => {
+      getLinksStats(linksToValidate, options.validate).then((res) => resolve(res));
     });
-  resolve(console.log('Links:', objectLinksArray));
-  // hasta aquí sería SIN OPTIONS
-  // a objectLinksArray se aplica validateLinks, devuelve prom a resolver en array de objs con links
-  // LUEGO VIENE LO DE OPTIONS
-  reject('La ruta no existe');
+  } else if (options.validate) {
+    validateLinks(objectLinksArray).then((res) => resolve(res));
+  } else if (options.stats) {
+    getLinksStats(objectLinksArray, options.validate).then((res) => resolve(res));
+  } else {
+    resolve(objectLinksArray);
+  }
 });
 
-mdLinks(route);
 export default mdLinks;
