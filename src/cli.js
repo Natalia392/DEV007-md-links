@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import mdLinks from './md-links.js';
 
 const route = process.argv[2];
