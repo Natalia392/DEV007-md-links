@@ -6,23 +6,38 @@ const optionValidate = process.argv.includes('--validate');
 
 const optionStats = process.argv.includes('--stats');
 
-let options = {
+const options = {
   validate: optionValidate,
   stats: optionStats,
 };
 
-console.log('CONSOLOGOPTIONS', options);
-
-if (process.argv[3] === '--validate' || process.argv[4] === '--validate') {
-  options = { validate: true };
-} else {
-  options = { validate: false };
-}
-
-// ----ESTO LUEGO IRÁ EN CLI ---------------------
 mdLinks(route, options)
   .then((links) => {
-    console.log(links);
+    if (options.validate && options.stats) {
+      console.log('total: ', links.total);
+      console.log('unique: ', links.unique);
+      console.log('working: ', links.working);
+      console.log('broken: ', links.broken);
+    } else if (options.validate) {
+      links.forEach((link) => {
+        console.log(`
+        href: ${link.href}
+        text: ${link.text}
+        file: ${link.file}
+        status: ${link.status}
+        ok: ${link.ok}`);
+      });
+    } else if (options.stats) {
+      console.log('total: ', links.total);
+      console.log('unique: ', links.unique);
+    } else {
+      links.forEach((link) => {
+        console.log(`
+        file: ${link.file}
+        href: ${link.href}
+        text: ${link.text}`);
+      });
+    }
   })
   .catch((error) => {
     console.error((error));

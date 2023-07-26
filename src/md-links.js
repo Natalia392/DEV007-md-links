@@ -11,8 +11,6 @@ import extractLinks from './extractLinks.js';
 import validateLinks from './validateLinks.js';
 import getLinksStats from './getStats.js';
 
-// const route = process.argv[2];
-
 const mdLinks = (path, options) => new Promise((resolve, reject) => {
   let absolutePath = '';
   // Declarar ruta y verifica si existe
@@ -31,6 +29,11 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   } else if (isMD(absolutePath)) {
     arrayMDFiles = isMD(absolutePath);
   }
+
+  if (arrayMDFiles.length === 0) {
+    console.log('No se encontraron archivos md');
+    resolve([]);
+  }
   // Sobre ese array se aplica función que lee mds, Retorna dataMDArray (array de objetos)
   const dataMDArray = readMarkdownFiles(arrayMDFiles);
   // Sobre dataMDArray se aplica función extractMDFiles para extraer links. Retorna objectLinksArray
@@ -43,7 +46,7 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   } else if (options.validate) {
     validateLinks(objectLinksArray).then((res) => resolve(res));
   } else if (options.stats) {
-    getLinksStats(objectLinksArray, options.validate).then((res) => resolve(res));
+    getLinksStats(objectLinksArray).then((res) => resolve(res));
   } else {
     resolve(objectLinksArray);
   }

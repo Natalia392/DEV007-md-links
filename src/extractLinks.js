@@ -1,4 +1,5 @@
 // ------------EXTRAER LOS LINKS Y DEVOLVER OBJETO CON URL, TEXT Y RUTA --------------
+
 const extractLinks = (objectWithMDDataArray) => {
   const objectLinksArray = [];
   const regex = /\[([^\]]+)\]\(([^\)]+)\)/g;
