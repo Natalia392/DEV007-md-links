@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs';
 
 // ------------------------FUNCIÓN RECURSIVA EXTRAE ARCHIVOS MD DE DIRECTORIO ------------------
+
 const extractMDFiles = (recievedPath) => {
   // crear array para recibir archivos md que se encuentren
   let arrayMDFiles = [];

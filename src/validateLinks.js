@@ -13,14 +13,15 @@ const validateLinks = (objectLinksArray) => {
       };
     })
     .catch((error) => {
+      let status = null;
       if (error.response) {
-        return {
-          ...objectLink,
-          status: error.response.status,
-          ok: 'FAIL',
-        };
+        status = error.response.status;
       }
-      return objectLink;
+      return {
+        ...objectLink,
+        status,
+        ok: 'FAIL',
+      };
     }));
   return Promise.all(promises);
 };
