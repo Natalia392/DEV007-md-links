@@ -19,7 +19,8 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   if (pathExists) {
     absolutePath = toAbsolutePath(path);
   } else {
-    console.log('Tu ruta no existe');
+    reject(new Error('Tu ruta no existe'));
+    return;
   }
   // Verificar si es directorio o MD: Se crea una constante arrayMDFiles para dos caminos dir o md.
   let arrayMDFiles = [];
@@ -31,8 +32,8 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   }
 
   if (arrayMDFiles.length === 0) {
-    console.log('No se encontraron archivos md');
-    resolve([]);
+    reject(new Error('No se encontraron archivos md'));
+    return;
   }
   // Sobre ese array se aplica función que lee mds, Retorna dataMDArray (array de objetos)
   const dataMDArray = readMarkdownFiles(arrayMDFiles);
@@ -41,12 +42,18 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   // Un if para validar si está la opción validate y su alternativa si no lo está.
   if (options.validate && options.stats) {
     validateLinks(objectLinksArray).then((linksToValidate) => {
-      getLinksStats(linksToValidate, options.validate).then((res) => resolve(res));
+      getLinksStats(linksToValidate, options.validate)
+        .then((res) => resolve(res));
+      reject(new Error('Hubo un problema al validar y contar los links'));
     });
   } else if (options.validate) {
-    validateLinks(objectLinksArray).then((res) => resolve(res));
+    validateLinks(objectLinksArray)
+      .then((res) => resolve(res));
+    reject(new Error('Hubo un problema al validar los links'));
   } else if (options.stats) {
-    getLinksStats(objectLinksArray).then((res) => resolve(res));
+    getLinksStats(objectLinksArray)
+      .then((res) => resolve(res));
+    reject(new Error('Hubo un problema al obtener los stats'));
   } else {
     resolve(objectLinksArray);
   }
