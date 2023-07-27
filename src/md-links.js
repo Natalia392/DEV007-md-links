@@ -21,7 +21,6 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
     absolutePath = toAbsolutePath(path);
   } else {
     reject(new Error('Tu ruta no existe'));
-    return;
   }
 
   let arrayMDFiles = [];
@@ -33,7 +32,6 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
 
   if (arrayMDFiles.length === 0) {
     reject(new Error('No se encontraron archivos md'));
-    return;
   }
 
   const dataMDArray = readMarkdownFiles(arrayMDFiles);
@@ -48,21 +46,21 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   if (options.validate && options.stats) {
     validateLinks(objectLinksArray).then((linksToValidate) => {
       getLinksStats(linksToValidate, options.validate)
-        .then((res) => resolve(res));
-      reject(new Error('Hubo un problema al validar y contar los links'));
+        .then((res) => resolve(res))
+        .catch(() => reject(new Error('Hubo un problema al validar y contar los links')));
     });
 
   // con --validate
   } else if (options.validate) {
     validateLinks(objectLinksArray)
-      .then((res) => resolve(res));
-    reject(new Error('Hubo un problema al validar los links'));
+      .then((res) => resolve(res))
+      .catch(() => new Error('Hubo un problema al validar los links'));
 
   // con --stats
   } else if (options.stats) {
     getLinksStats(objectLinksArray)
-      .then((res) => resolve(res));
-    reject(new Error('Hubo un problema al obtener los stats'));
+      .then((res) => resolve(res))
+      .catch(() => new Error('Hubo un problema al obtener los stats'));
 
   // sin ninguna opción
   } else {

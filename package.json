@@ -5,6 +5,9 @@
     "node": ">=16.x"
   },
   "type": "module",
+  "bin": {
+    "mdL": "./src/cli.js"
+  },
   "bootcamp": {
     "createdAt": "2023-06-20T14:05:58.211Z",
     "version": "6.3.0",
