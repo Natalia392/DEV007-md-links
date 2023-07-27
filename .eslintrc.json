@@ -10,7 +10,8 @@
       "error",
       "always"
     ],
-    "no-useless-escape": "off"
+    "no-useless-escape": "off",
+    "linebreak-style": ["error", "windows"]
   },
   "env": {
     "browser": true,
