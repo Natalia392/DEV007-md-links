@@ -3,13 +3,12 @@ import {
   toAbsolutePath,
   isDirectory,
   isMD,
-} from './src/index.js';
-
-import extractMDFiles from './src/extractMDFiles.js';
-import readMarkdownFiles from './src/readMarkdownFiles.js';
-import extractLinks from './src/extractLinks.js';
-import validateLinks from './src/validateLinks.js';
-import getLinksStats from './src/getStats.js';
+  extractMDFiles,
+  readMarkdownFiles,
+  extractLinks,
+  validateLinks,
+  getLinksStats,
+} from './index.js';
 
 // Busca y valida links en archivos md dentro de un directorio
 const mdLinks = (path, options) => new Promise((resolve, reject) => {

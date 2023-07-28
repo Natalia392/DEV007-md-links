@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import chalk from 'chalk';
-import mdLinks from './md-links.js';
+import mdLinks from './src/md-links.js';
 import { truncateText } from './src/index.js';
 
 const route = process.argv[2];
