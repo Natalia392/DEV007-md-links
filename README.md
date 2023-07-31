@@ -1,5 +1,5 @@
 # Markdown Links
-![md-links](fotoReadme.png)
+![fotoReadme.png](https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/fotoReadme.png?raw=true)
 ***
 ## Índice
 
@@ -147,11 +147,11 @@ es decir, puede indicarse primero --validate y luego --stats y viceversa.
 
 A continuación se presentan las tareas asignadas para completar el proyecto:
 
-<img src="imgsreadme\captura-board1.png" alter="backlog1" width="900">
-<img src="imgsreadme\captura-board2.png" alter="backlog2" width="900">
-<img src="imgsreadme\captura-board3.png" alter="backlog3" width="900">
-<img src="imgsreadme\captura-board4.png" alter="backlog4" width="900">
-<img src="imgsreadme\captura-board5.png" alter="backlog5" width="900">
+<img src="https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/captura-board1.png?raw=true" alter="backlog1" width="900">
+<img src="https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/captura-board2.png?raw=true" alter="backlog2" width="900">
+<img src="https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/captura-board3.png?raw=true" alter="backlog3" width="900">
+<img src="https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/captura-board4.png?raw=true" alter="backlog4" width="900">
+<img src="https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/captura-board5.png?raw=true" alter="backlog5" width="900">
 
 
 ## 5. Tecnologías utilizadas
