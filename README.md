@@ -3,7 +3,8 @@
 ## Índice
 
 * [1. Preámbulo](#1-preámbulo)
-* [2. Guía de uso](#2-guía-de-uso)
+* [2. Documentación técnica](#2-documentacion-tecnica)
+* [3. Guía de uso](#3-guía-de-uso)
 * [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
 * [4. Consideraciones generales](#4-consideraciones-generales)
 * [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptación-mínimos-del-proyecto)
@@ -30,7 +31,49 @@ usando [Node.js](https://nodejs.org/), que lea y analice archivos
 en formato `Markdown`, para verificar los links que contengan yreportar
 estadísticas respecto de estos links.
 
-## 2. Guía de uso
+## 3. Documentación técnica
+
+La herramienta ejecuta la siguiente función, que recibe una ruta y puede
+recibir también algunas opciones:
+
+#### `mdLinks(path, options)`
+
+##### Argumentos
+
+Los argumentos que recibe la función son dos:
+
+* `path`: Ruta **absoluta** o **relativa** al **archivo** o **directorio**.
+Si la ruta pasada es relativa, debe resolverse como relativa al directorio
+desde donde se invoca node - _current working directory_).
+* `options`: Un objeto con **únicamente** la siguiente propiedad:
+  - `validate`: Booleano que determina si se desea validar los links
+    encontrados.
+
+##### Valor de retorno
+
+La función retorna una promesa (`Promise`) que **se resueve en un arreglo**
+(`Array`) de objetos (`Object`), donde cada objeto representa un link y contiene
+las siguientes propiedades
+
+Con `validate:false` :
+
+* `href`: URL encontrada.
+* `text`: Texto que aparecía dentro del link (`<a>`).
+* `file`: Ruta del archivo donde se encontró el link.
+
+Con `validate:true` :
+
+* `href`: URL encontrada.
+* `text`: Texto que aparecía dentro del link (`<a>`).
+* `file`: Ruta del archivo donde se encontró el link.
+* `status`: Código de respuesta HTTP.
+* `ok`: Mensaje `fail` en caso de fallo u `ok` en caso de éxito.
+
+Dependiendo de qué opciones se pasen en el segundo argumento, entregará 
+estos distintos detalles. Esto se puede ver en más profundidad en la guía de uso
+a continuación.
+
+## 3. Guía de uso
 
 La aplicación se ejectua de la siguiente manera a través de la **terminal**:
 
@@ -310,36 +353,6 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
 El módulo debe poder **importarse** en otros scripts de Node.js y debe ofrecer la
 siguiente interfaz:
 
-#### `mdLinks(path, options)`
-
-##### Argumentos
-
-* `path`: Ruta **absoluta** o **relativa** al **archivo** o **directorio**.
-Si la ruta pasada es relativa, debe resolverse como relativa al directorio
-desde donde se invoca node - _current working directory_).
-* `options`: Un objeto con **únicamente** la siguiente propiedad:
-  - `validate`: Booleano que determina si se desea validar los links
-    encontrados.
-
-##### Valor de retorno
-
-La función debe **retornar una promesa** (`Promise`) que **resuelva a un arreglo**
-(`Array`) de objetos (`Object`), donde cada objeto representa un link y contiene
-las siguientes propiedades
-
-Con `validate:false` :
-
-* `href`: URL encontrada.
-* `text`: Texto que aparecía dentro del link (`<a>`).
-* `file`: Ruta del archivo donde se encontró el link.
-
-Con `validate:true` :
-
-* `href`: URL encontrada.
-* `text`: Texto que aparecía dentro del link (`<a>`).
-* `file`: Ruta del archivo donde se encontró el link.
-* `status`: Código de respuesta HTTP.
-* `ok`: Mensaje `fail` en caso de fallo u `ok` en caso de éxito.
 
 #### Ejemplo (resultados como comentarios)
 
