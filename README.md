@@ -42,8 +42,15 @@ Para instalar la librería en su computador, ingrese el siguiente comando en su 
 
 `npm i nati-md-links`
 
-La herramienta ejecuta la siguiente función, que recibe una ruta y puede
-recibir también algunas opciones:
+Tras ejectutar este comando, se instalará el programa y se podrá
+llamar con el siguiente comando:
+
+`npx mdl`
+
+La herramienta ejecuta la función mdLinks, que recibe una ruta y puede
+recibir también algunas opciones.
+
+A continuación se explica cómo ejecutar con opciones:
 
 #### `mdLinks(path, options)`
 
@@ -88,11 +95,15 @@ La aplicación se ejectua de la siguiente manera a través de la **terminal**:
 
 `mdL <path-to-file> [options]`
 
-Esto puede resolverse en los siguientes 4 modos de ejecución:
+Siguiendo el paso de instalación indicado más arriba 
+esto puede resolverse en los siguientes 4 modos de ejecución:
 
-- `mdL <path-to-file> [no-options]`
+### 1. Sin indicar options
 
 Este es el comportamiento por defecto, sin opciones.
+Se usa ejecutando el siguiente comando:
+
+`npx mdl`
 
 Este no valida si las URLs responden ok o no, solo identifica el archivo markdown
 (a partir de la ruta que recibe como argumento), analiza el archivo Markdown
@@ -108,9 +119,11 @@ $ md-links ./some/example.md
 ./some/example.md http://google.com/ Google
 ```
 
-- `mdL <path-to-file> [--validate]`
+### 2. Pasando la opción `--validate`
 
-##### `--validate`
+Esto se haría ejecutando el siguiente comando:
+
+`npx mdl --validate`
 
 Si pasamos la opción `--validate`, el módulo hace una petición HTTP para
 averiguar si el link funciona o no. Si el link resulta en una redirección a una
@@ -129,11 +142,13 @@ El _output_ en este caso incluye la palabra `ok` o `fail` después de
 la URL, así como el status de la respuesta recibida a la petición HTTP a dicha
 URL.
 
-- `mdL <path-to-file> [--stats]`
+### 3. Pasando la opción `--stats`
 
-##### `--stats`
+Esto se hace ejecutando el comando:
 
-Si pasamos la opción `--stats` el output (salida) será un texto con estadísticas
+`npx mdl --stats`
+
+En este caso el output (salida) será un texto con estadísticas
 básicas sobre los links.
 
 ```sh
@@ -142,17 +157,21 @@ Total: 3
 Unique: 3
 ```
 
-- `mdL <path-to-file> [--validate --stats]`
+### 4. Pasando tanto la opción `--validate` como la opción `--stats`
 
+Eso se haría ejecutando el comando:
 
-También podemos combinar `--stats` y `--validate` para obtener estadísticas que
-necesiten de los resultados de la validación.
+`npx mdl --stats --validate` o bien `npx mdl --validate --stats`
+
+Esto permite obtener las estadísticas de los links que funcionan
+y los links que están rotos, además del total de links y links únicos.
 
 ```sh
 $ md-links ./some/example.md --stats --validate
 Total: 3
 Unique: 3
 Broken: 1
+working: 2
 ```
 
 Aquí, el orden de los comandos no cambia el resultado,
