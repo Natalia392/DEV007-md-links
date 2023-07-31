@@ -89,7 +89,7 @@ Dependiendo de qué opciones se pasen en el segundo argumento, entregará
 estos distintos detalles. Esto se puede ver en más profundidad en la guía de uso
 a continuación.
 
-## 3. Guía de uso
+## 4. Guía de uso
 
 La aplicación se ejectua de la siguiente manera a través de la **terminal**:
 
@@ -192,7 +192,7 @@ working: 2
 Aquí, el orden de los comandos no cambia el resultado,
 es decir, puede indicarse primero --validate y luego --stats y viceversa.
 
-## 4. Backlog producto
+## 5. Backlog producto
 
 A continuación se presentan las tareas asignadas para completar el proyecto:
 
@@ -203,7 +203,7 @@ A continuación se presentan las tareas asignadas para completar el proyecto:
 <img src="https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/captura-board5.png?raw=true" alter="backlog5" width="900">
 
 
-## 5. Tecnologías utilizadas
+## 6. Tecnologías utilizadas
 
 Javascript
 - Manejo de arrays
