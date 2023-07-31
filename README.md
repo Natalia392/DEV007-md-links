@@ -38,6 +38,10 @@ como guía del proceso de la función:
 
 ## 3. Documentación técnica
 
+Para instalar la librería en su computador, ingrese el siguiente comando en su terminal:
+
+`npm i nati-md-links`
+
 La herramienta ejecuta la siguiente función, que recibe una ruta y puede
 recibir también algunas opciones:
 
