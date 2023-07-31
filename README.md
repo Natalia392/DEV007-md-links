@@ -93,7 +93,9 @@ a continuación.
 
 La aplicación se ejectua de la siguiente manera a través de la **terminal**:
 
-`mdL <path-to-file> [options]`
+```sh
+mdL <path-to-file> [options]
+```
 
 Siguiendo el paso de instalación indicado más arriba 
 esto puede resolverse en los siguientes 4 modos de ejecución:
@@ -103,7 +105,9 @@ esto puede resolverse en los siguientes 4 modos de ejecución:
 Este es el comportamiento por defecto, sin opciones.
 Se usa ejecutando el siguiente comando:
 
-`npx mdl`
+```sh
+npx mdl <path>
+```
 
 Este no valida si las URLs responden ok o no, solo identifica el archivo markdown
 (a partir de la ruta que recibe como argumento), analiza el archivo Markdown
@@ -123,7 +127,9 @@ $ md-links ./some/example.md
 
 Esto se haría ejecutando el siguiente comando:
 
-`npx mdl --validate`
+```sh
+npx mdl <path> --validate
+```
 
 Si pasamos la opción `--validate`, el módulo hace una petición HTTP para
 averiguar si el link funciona o no. Si el link resulta en una redirección a una
@@ -146,7 +152,9 @@ URL.
 
 Esto se hace ejecutando el comando:
 
-`npx mdl --stats`
+```sh
+npx mdl <path> --stats
+```
 
 En este caso el output (salida) será un texto con estadísticas
 básicas sobre los links.
@@ -161,7 +169,14 @@ Unique: 3
 
 Eso se haría ejecutando el comando:
 
-`npx mdl --stats --validate` o bien `npx mdl --validate --stats`
+```sh
+npx mdl <path> --stats --validate
+```
+
+o bien
+```sh
+npx mdl <path> --validate --stats
+```
 
 Esto permite obtener las estadísticas de los links que funcionan
 y los links que están rotos, además del total de links y links únicos.
