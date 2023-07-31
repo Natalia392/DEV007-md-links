@@ -1,5 +1,6 @@
 # Markdown Links
-
+![md-links](fotoReadme.png)
+***
 ## Índice
 
 * [1. Preámbulo](#1-preámbulo)
@@ -9,7 +10,6 @@
 * [5. Tecnologías utilizadas](#5-tecnologías-utilizadas)
 
 ***
-![md-links](fotoReadme.png)
 ## 1. Preámbulo
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
