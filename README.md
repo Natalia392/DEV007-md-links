@@ -94,7 +94,7 @@ a continuación.
 La aplicación se ejectua de la siguiente manera a través de la **terminal**:
 
 ```sh
-mdL <path-to-file> [options]
+mdL path-to-file [options]
 ```
 
 Siguiendo el paso de instalación indicado más arriba 
@@ -106,7 +106,7 @@ Este es el comportamiento por defecto, sin opciones.
 Se usa ejecutando el siguiente comando:
 
 ```sh
-npx mdl <path>
+npx mdl path-to-file
 ```
 
 Este no valida si las URLs responden ok o no, solo identifica el archivo markdown
@@ -128,7 +128,7 @@ $ md-links ./some/example.md
 Esto se haría ejecutando el siguiente comando:
 
 ```sh
-npx mdl <path> --validate
+npx mdl path-to-file --validate
 ```
 
 Si pasamos la opción `--validate`, el módulo hace una petición HTTP para
@@ -153,7 +153,7 @@ URL.
 Esto se hace ejecutando el comando:
 
 ```sh
-npx mdl <path> --stats
+npx mdl path-to-file --stats
 ```
 
 En este caso el output (salida) será un texto con estadísticas
@@ -170,12 +170,12 @@ Unique: 3
 Eso se haría ejecutando el comando:
 
 ```sh
-npx mdl <path> --stats --validate
+npx mdl path-to-file --stats --validate
 ```
 
 o bien
 ```sh
-npx mdl <path> --validate --stats
+npx mdl path-to-file --validate --stats
 ```
 
 Esto permite obtener las estadísticas de los links que funcionan
