@@ -5,10 +5,11 @@
 ## Índice
 
 * [1. Preámbulo](#1-preámbulo)
-* [2. Documentación técnica](#2-documentación-técnica)
-* [3. Guía de uso](#3-guía-de-uso)
-* [4. Backlog producto](#4-backlog-producto)
-* [5. Tecnologías utilizadas](#5-tecnologías-utilizadas)
+* [2. Diagrama de Flujo](#2-diagrama-de-flujo)
+* [3. Documentación técnica](#3-documentación-técnica)
+* [4. Guía de uso](#4-guía-de-uso)
+* [5. Backlog producto](#5-backlog-producto)
+* [6. Tecnologías utilizadas](#6-tecnologías-utilizadas)
 
 ***
 ## 1. Preámbulo
@@ -31,9 +32,11 @@ estadísticas respecto de estos links.
 Para desarrollar esta aplicación, se creó un diagrama de flujo que sirviera
 como guía del proceso de la función:
 
-<img src="[https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/fotoReadme.png?raw=true](https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/Diagrama-flujo-mdlinks-nati-FINAL.drawio.png?raw=true)" alter="diagrama-de-flujo">
+[Diagrama de flujo](https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/Diagrama-flujo-mdlinks-nati-FINAL.drawio.png?raw=true)
 
-## 2. Documentación técnica
+<img src="https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/Diagrama-flujo-mdlinks-nati-FINAL.drawio.png?raw=true" alter="diagrama" width="700">
+
+## 3. Documentación técnica
 
 La herramienta ejecuta la siguiente función, que recibe una ruta y puede
 recibir también algunas opciones:
