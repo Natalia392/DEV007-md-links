@@ -1,5 +1,6 @@
 # Markdown Links
-![fotoReadme.png](https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/fotoReadme.png?raw=true)
+<img src="https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/fotoReadme.png?raw=true" alter="backlog5" width="700">
+
 ***
 ## Índice
 
