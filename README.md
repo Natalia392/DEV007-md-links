@@ -26,6 +26,13 @@ usando [Node.js](https://nodejs.org/), que lea y analice archivos
 en formato `Markdown`, para verificar los links que contengan yreportar
 estadísticas respecto de estos links.
 
+## 2. Diagrama de Flujo
+
+Para desarrollar esta aplicación, se creó un diagrama de flujo que sirviera
+como guía del proceso de la función:
+
+<img src="[https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/fotoReadme.png?raw=true](https://github.com/Natalia392/DEV007-md-links/blob/main/imgsreadme/Diagrama-flujo-mdlinks-nati-FINAL.drawio.png?raw=true)" alter="diagrama-de-flujo">
+
 ## 2. Documentación técnica
 
 La herramienta ejecuta la siguiente función, que recibe una ruta y puede
